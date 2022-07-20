@@ -1,0 +1,20 @@
+{%extends 'catalog/base.html'%}
+
+{%block content%}
+<div class="contaiver">
+    <h1> List of authors </h1>
+    <hr>
+    {%if author_list%}
+            {%for author in author_list.all%}
+              <p><strong> <a href="{% url 'author-detail' author.pk %}">{{ author.first_name }} {{author.last_name}}</a> </strong></strong></p>
+              <p>Born: {{author.date_of_birth}} </p>
+              <p>Died: {{author.date_of_death}} </p>
+              <hr>
+            {%endfor%}
+
+
+        {%else%}
+            <p>No authors in data base</p>
+    {%endif%}
+</div>
+{%endblock content%}

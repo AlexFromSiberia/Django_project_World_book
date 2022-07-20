@@ -1,0 +1,25 @@
+{%extends 'catalog/base.html'%}
+
+{%block content%}
+<div class="container">
+    <h1> Main page</h1>
+    <p>Welcome to the best Books site! As a leader in education publishing for over 100 years, World Book’s mission continues to focus on developing a collaborative digital learning platform that is backed by editorial excellence, invaluable resources, and effective tools that support personalized teaching and learning—serving over 100 million students across 65+ countries.</p>
+    <h2> Content you can find here:</h2>
+    <p> Education is World Book's commitment and its editorial team is World Book's strength. Each team member is
+        dedicated to producing accurate and unbiased information by utilizing contemporary technological tools and
+        following traditional practices of editorial excellence. For more than 100 years, World Book has promoted
+        learning for the entire family through a range of products in which complex topics are concisely explained
+        and vividly illustrated. An explicit goal is to help increase both reading fluency and comprehension in
+        young readers. Encyclopedic content is updated continually and accessible 24/7 on a variety of devices.
+        Innovative and readable, World Book will remain a trusted and useful resource at home, in the library, and
+        in the classroom for years to come.</p>
+
+    <ul>
+        <li><strong> Overall number of different books: </strong> {{num_books}}</li>
+        <li><strong> Overall number of copies : </strong> {{num_instances}}</li>
+        <li><strong> Overall number of copies in order :</strong> {{num_instances_available}}</li>
+        <li><strong> Overall number of authors </strong> {{num_authors}}</li>
+    </ul>
+    <p> You've been here {{num_visits}} times already! </p>
+</div>
+{%endblock content%}

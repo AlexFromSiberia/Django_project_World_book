@@ -1,0 +1,18 @@
+{%extends 'catalog/base.html'%}
+
+{%block content%}
+    <h2>All the borrowed books:</h2>
+    {%if bookinstance_list%}
+    <ul>
+    {%for bookinst in bookinstance_list%}
+        <li class="{%if bookinst.is_overdue%}text-danger {% endif %}">
+            <a href="{%url 'detail_view' bookinst.book.pk%}">{{bookinst.book.title}}</a>
+            , Customer name: {{bookinst.borrower}}, return before : {{bookinst.due_back}} <a href="{% url 'renew-book-librarian' bookinst.pk%}">Change the return date </a>
+        </li>
+        <br>
+    {%endfor%}
+    </ul>
+    {%else%}
+        <p>There are no books borrowed yet!</p>
+    {% endif %}
+{%endblock content%}

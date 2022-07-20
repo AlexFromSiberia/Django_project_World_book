@@ -1,0 +1,33 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>User name OR Password error, please check and try again</p>
+    {% endif %}
+    {% if next %}
+        {%if user.is_authenticated%}
+            <p>You don't have access to the page</p>
+            <p>Check username and password</p>
+        {%else%}
+            <p>Login to see the page</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Enter"/>
+        <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+    <p><a href="{% url 'password_reset' %}">Did you forger the password?</a></p>
+{%endblock content%}

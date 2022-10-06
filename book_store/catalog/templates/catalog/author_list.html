@@ -6,7 +6,7 @@
     <hr>
     {%if author_list%}
             {%for author in author_list.all%}
-              <p><strong> <a href="{% url 'author-detail' author.pk %}">{{ author.first_name }} {{author.last_name}}</a> </strong></strong></p>
+              <p><strong> <a href="{% url 'author-detail' author.pk %}">{{ author.first_name }} {{author.last_name}}</a> </strong></p>
               <p>Born: {{author.date_of_birth}} </p>
               <p>Died: {{author.date_of_death}} </p>
               <hr>
@@ -16,3 +16,4 @@
     {%endif%}
 </div>
 {%endblock content%}
+

@@ -2,12 +2,11 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import datetime
-from django.forms import ModelForm
 from .models import Author, Book
 
 
 class RenewBookForm(forms.Form):
-    renewal_date = forms.DateField(help_text="Enter date between now and 4 weeks (default value is 3 weeks)")
+    renewal_date = forms.DateField(help_text="Enter date between now and 4 weeks (default value is +3 weeks)")
 
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']
@@ -18,13 +17,13 @@ class RenewBookForm(forms.Form):
         return data
 
 
-class AuthorModelForm(ModelForm):
+class AuthorModelForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
 
-class BookModelForm(ModelForm):
+class BookModelForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'genre', 'language', 'author', 'summary', 'isbn']

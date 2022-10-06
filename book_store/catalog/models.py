@@ -48,11 +48,11 @@ class Book(models.Model):
     title = models.CharField(max_length=200,
                              help_text="Enter the title",
                              verbose_name="Book title")
-    genre = models.ForeignKey('Genre', on_delete=models.CASCADE,
+    genre = models.ForeignKey('Genre', on_delete=models.PROTECT,
                               help_text="Choose the genre",
                               verbose_name="The book's genre",
                               null=True)
-    language = models.ForeignKey('Language', on_delete=models.CASCADE,
+    language = models.ForeignKey('Language', on_delete=models.PROTECT,
                                  help_text="Choose language",
                                  verbose_name="The book's language", null=True)
     author = models.ManyToManyField('Author',
@@ -90,7 +90,7 @@ class BookInstance(models.Model):
     imprint = models.CharField(max_length=200,
                                help_text="Enter publisher and publish date",
                                verbose_name="Publisher")
-    status = models.ForeignKey('Status', on_delete=models.CASCADE,
+    status = models.ForeignKey('Status', on_delete=models.PROTECT,
                                null=True, help_text="Change status",
                                verbose_name="Status of the book")
     due_back = models.DateField(null=True, blank=True,

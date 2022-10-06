@@ -1,13 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance
 from .forms import RenewBookForm
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 import datetime
-
 
 
 def index(request):
@@ -131,5 +130,3 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("author_list")
     template_name = 'catalog/author_confirm_delete.html'
     permission_required = 'catalog.can_mark_returned'
-
-

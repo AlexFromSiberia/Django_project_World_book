@@ -1,15 +1,16 @@
+import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Book, Author, BookInstance
-from .forms import RenewBookForm
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-import datetime
+from .forms import RenewBookForm
+from .models import Book, Author, BookInstance
 
 
 def index(request):
+    """View function for home page of site."""
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
     num_instances_available = BookInstance.objects.filter(status__exact=2).count()
@@ -28,6 +29,7 @@ def index(request):
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
+    """View function for renewing a specific BookInstance by librarian."""
     book_inst = get_object_or_404(BookInstance, pk=pk)
 
     if request.method == 'POST':
@@ -45,17 +47,20 @@ def renew_book_librarian(request, pk):
 
 
 class BookListView(generic.ListView):
+    """Generic class-based view listing books."""
     model = Book
     template_name = 'catalog/book_list.html'
     paginate_by = 5
 
 
 class BookDetailView(generic.DetailView):
+    """Generic class-based view detailing books."""
     model = Book
     template_name = 'catalog/detail_view.html'
 
 
 class BookCreate(PermissionRequiredMixin, CreateView):
+    """Create a new book."""
     model = Book
     fields = "__all__"
     template_name = 'catalog/book_form.html'
@@ -64,6 +69,7 @@ class BookCreate(PermissionRequiredMixin, CreateView):
 
 
 class BookUpdate(PermissionRequiredMixin, UpdateView):
+    """Update a book"""
     model = Book
     fields = "__all__"
     template_name = 'catalog/book_form.html'
@@ -72,6 +78,7 @@ class BookUpdate(PermissionRequiredMixin, UpdateView):
 
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
+    """Delete a book"""
     model = Book
     success_url = reverse_lazy("book_list")
     template_name = 'catalog/book_confirm_delete.html'
@@ -79,12 +86,14 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
 
 
 class AuthorListView(generic.ListView):
+    """Author list view."""
     model = Author
     template_name = 'catalog/author_list.html'
     paginate_by = 3
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    """List books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
@@ -94,6 +103,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 class AllBorrowedBooksListView(PermissionRequiredMixin, generic.ListView):
+    """List all books borrowed."""
     model = BookInstance
     template_name = 'catalog/allborrowedbooks.html'
     paginate_by = 10
@@ -104,11 +114,13 @@ class AllBorrowedBooksListView(PermissionRequiredMixin, generic.ListView):
 
 
 class AuthorDetailView(generic.DetailView):
+    """Author detail view."""
     model = Author
     template_name = 'catalog/authors_detail_view.html'
 
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
+    """Create an author."""
     model = Author
     fields = "__all__"
     initial = {"date_of_death": "12/10/2020"}
@@ -118,6 +130,7 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
 
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
+    """Update an author."""
     model = Author
     fields = "__all__"
     template_name = 'catalog/author_form.html'
@@ -126,6 +139,7 @@ class AuthorUpdate(PermissionRequiredMixin, UpdateView):
 
 
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
+    """Delete an author."""
     model = Author
     success_url = reverse_lazy("author_list")
     template_name = 'catalog/author_confirm_delete.html'

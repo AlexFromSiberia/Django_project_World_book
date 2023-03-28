@@ -1,9 +1,10 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
 
 
 class Genre(models.Model):
+    """Genre model"""
     name = models.CharField(max_length=150,
                             help_text='Enter the book genre',
                             verbose_name='The book genre')
@@ -13,6 +14,7 @@ class Genre(models.Model):
 
 
 class Language(models.Model):
+    """Language model"""
     name = models.CharField(max_length=20,
                             help_text='Enter the book language',
                             verbose_name='The book language')
@@ -22,6 +24,7 @@ class Language(models.Model):
 
 
 class Author(models.Model):
+    """Author model"""
     first_name = models.CharField(max_length=100,
                                   help_text='Enter author first name',
                                   verbose_name='The author first name')
@@ -45,6 +48,7 @@ class Author(models.Model):
 
 
 class Book(models.Model):
+    """Book model"""
     title = models.CharField(max_length=200,
                              help_text="Enter the title",
                              verbose_name="Book title")
@@ -69,12 +73,14 @@ class Book(models.Model):
         return self.title
 
     def display_author(self):
+        """Display the author's last name"""
         return ', '.join([author.last_name for author in self.author.all()])
 
     display_author.short_description = 'Authors'
 
 
 class Status(models.Model):
+    """Status model"""
     name = models.CharField(max_length=20,
                             help_text="Enter the book status",
                             verbose_name="Status of the book")
@@ -84,6 +90,7 @@ class Status(models.Model):
 
 
 class BookInstance(models.Model):
+    """BookInstance model"""
     book = models.ForeignKey('Book', on_delete=models.CASCADE, null=True, )
     inv_num = models.CharField(max_length=20, null=True,
                                help_text="Enter inventory number")
